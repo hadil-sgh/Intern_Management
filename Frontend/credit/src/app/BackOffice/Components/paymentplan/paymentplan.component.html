@@ -1,0 +1,82 @@
+<div class="container">
+    <h1>Repayment Plans</h1>
+    <button class="btn btn-primary" (click)="openModal()">Add Repayment Plan</button>
+  
+    <table class="table table-striped mt-3">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Due Date</th>
+          <th>Starting Balance</th>
+          <th>Starting Reimbursement Amount</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let plan of repaymentPlans">
+          <td>{{ plan.id }}</td>
+          <td>{{ plan.dueDate }}</td>
+          <td>{{ plan.startingBalance }}</td>
+          <td>{{ plan.startingBalanceReimbursementAmount }}</td>
+          <td>
+            <button class="btn btn-info" (click)="openModal(plan)">Edit</button>
+            <button class="btn btn-danger" (click)="deleteRepaymentPlan(plan.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Modal -->
+    <div *ngIf="showModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" *ngIf="selectedRepaymentPlan">Edit Repayment Plan</h5>
+          <h5 class="modal-title" *ngIf="!selectedRepaymentPlan">Add Repayment Plan</h5>
+          <button type="button" class="close" (click)="closeModal()">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="dueDate">Due Date</label>
+              <input type="date" id="dueDate" [(ngModel)]="repaymentPlanForm.dueDate" name="dueDate" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="startingBalance">Starting Balance</label>
+              <input type="number" id="startingBalance" [(ngModel)]="repaymentPlanForm.startingBalance" name="startingBalance" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="startingBalanceReimbursementAmount">Starting Reimbursement Amount</label>
+              <input type="number" id="startingBalanceReimbursementAmount" [(ngModel)]="repaymentPlanForm.startingBalanceReimbursementAmount" name="startingBalanceReimbursementAmount" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="repaymentOfCapital">Repayment of Capital</label>
+              <input type="number" id="repaymentOfCapital" [(ngModel)]="repaymentPlanForm.repaymentOfCapital" name="repaymentOfCapital" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="remainingDueBalance">Remaining Due Balance</label>
+              <input type="number" id="remainingDueBalance" [(ngModel)]="repaymentPlanForm.remainingDueBalance" name="remainingDueBalance" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="interestAndCumulate">Interest and Cumulate</label>
+              <input type="number" id="interestAndCumulate" [(ngModel)]="repaymentPlanForm.interestAndCumulate" name="interestAndCumulate" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="creditId">Credit ID</label>
+              <input type="number" id="creditId" [(ngModel)]="repaymentPlanForm.creditId" name="creditId" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="paymentDetailsId">Payment Details ID</label>
+              <input type="number" id="paymentDetailsId" [(ngModel)]="repaymentPlanForm.paymentDetailsId" name="paymentDetailsId" class="form-control">
+            </div>
+            <button type="button" class="btn btn-primary" (click)="saveRepaymentPlan()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal Overlay -->
+    <div *ngIf="showModal" class="modal-overlay-background" (click)="closeModal()"></div>
+  </div>
+  

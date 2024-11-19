@@ -1,0 +1,84 @@
+<div class="separator"></div>
+<div class="container mt-4">
+    <div class="text-center mb-4">
+      <h2>Team Management</h2>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="onAddTeam()"
+        data-bs-toggle="modal"
+        data-bs-target="#teamModal"
+      >
+        Add Team
+      </button>
+    </div>
+  
+    <hr />
+  
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Team Name</th>
+            <th>Members</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let team of teams">
+            <td>{{ team.name }}</td>
+            <td>
+              <ul class="list-unstyled mb-0">
+                <li *ngFor="let user of team.users">{{ user.nom }} {{ user.prenom }}</li>
+              </ul>
+            </td>
+            <td>
+              <button
+                class="btn btn-outline-success me-2"
+                data-bs-toggle="modal"
+                data-bs-target="#teamModal"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-outline-danger"
+                (click)="team.id ? onDeleteTeam(team.id) : null"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  
+    <div class="modal fade" id="teamModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ isEditMode ? 'Edit Team' : 'Add Team' }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="name" class="form-label">Team Name:</label>
+                <input id="name" type="text" formControlName="name" class="form-control" />
+              </div>
+  
+              <div class="mb-3">
+                <label for="userIds" class="form-label">Select Members:</label>
+                <select id="userIds" formControlName="userIds" multiple class="form-select">
+                  <option *ngFor="let user of users" [value]="user.id">{{ user.nom }} {{ user.prenom }}</option>
+                </select>
+              </div>
+  
+              <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Create' }}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>

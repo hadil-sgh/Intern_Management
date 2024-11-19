@@ -1,0 +1,107 @@
+<div class="separator"></div>
+<div class="container" style="max-width: 800px; margin: auto;" data-aos="fade-up">
+  <div class="card">
+    <div class="card-body">
+      <!-- Form for Credit -->
+      <form [formGroup]="creditForm" (ngSubmit)="onSubmit()">
+        <h1 style="text-align: center;">Submit a Credit</h1>
+        
+        <!-- Credit Type -->
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="creditType" class="form-label">Credit Type</label>
+            <select id="creditType" class="form-select" formControlName="creditType">
+              <option value="Accommodation">Accommodation</option>
+              <option value="Leisure">Leisure</option>
+              <option value="Study">Study</option>
+              <option value="Travel">Travel</option>
+              <option value="Language">Language</option>
+              <option value="Training">Training</option>
+            </select>
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="creditForm.controls['creditType'].invalid && creditForm.controls['creditType'].touched">
+          <div *ngIf="creditForm.controls['creditType'].hasError('required')">Credit Type is required!</div>
+        </div>
+
+     
+        <div class="alert alert-danger" *ngIf="creditForm.controls['creditStatus'].invalid && creditForm.controls['creditStatus'].touched">
+          <div *ngIf="creditForm.controls['creditStatus'].hasError('required')">Credit Status is required!</div>
+        </div>
+
+        <!-- Credit Amount -->
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="creditAmount" class="form-label">Credit Amount</label>
+            <input type="number" formControlName="creditAmount" class="form-control" id="creditAmount">
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="creditForm.controls['creditAmount'].invalid && creditForm.controls['creditAmount'].touched">
+          <div *ngIf="creditForm.controls['creditAmount'].hasError('required')">Credit Amount is required!</div>
+          <div *ngIf="creditForm.controls['creditAmount'].hasError('min')">Credit Amount must be greater than 0!</div>
+        </div>
+
+        <!-- Credit Duration -->
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="creditDuration" class="form-label">Credit Duration (Months)</label>
+            <input type="number" formControlName="creditDuration" class="form-control" id="creditDuration">
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="creditForm.controls['creditDuration'].invalid && creditForm.controls['creditDuration'].touched">
+          <div *ngIf="creditForm.controls['creditDuration'].hasError('required')">Credit Duration is required!</div>
+          <div *ngIf="creditForm.controls['creditDuration'].hasError('min')">Credit Duration must be at least 1 month!</div>
+        </div>
+
+        <!-- Submit and Cancel Buttons -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-outline-primary m-1">
+            <img src="/assets/FrontOffice/img/add.png" alt="Add Icon" class="button-icon" />
+            submit
+          </button>
+          <span class="button-space"></span>
+          <button type="button" class="btn btn-outline-secondary m-1" (click)="cancel()">
+            <img src="/assets/FrontOffice/img/clear.png" alt="Clear Icon" class="button-icon" />
+            Clear
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br><br>
+  <div class="text-center">
+    <img src="/assets/FrontOffice/img/red.png" alt="Warning Icon" class="button-icon" />
+    <h5 style="color: grey; display: inline-block; margin-right: 5px;">Warning: Please ensure all details are correct before saving.</h5>
+    <i class="fas fa-exclamation-triangle" style="color: orange;"></i>
+  </div>
+  <div class="separator"></div>
+</div>
+<style>
+    .separator {
+    height: 100px; }
+    .separator1 {
+    height: 10px; }
+    .button-space {
+    margin: 0 10px; } 
+    .button-space1 {
+    margin: 0 5px; 
+  }
+  .swal-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+  
+  .status-icon {
+  width: 20px; /* Adjust the width to your desired size */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 5px; /* Optional: Add margin for spacing */
+  }
+  
+  .button-icon {
+  width: 20px; /* Adjust the width to your desired size */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 5px; /* Optional: Add margin for spacing */
+  }
+  
+  </style>

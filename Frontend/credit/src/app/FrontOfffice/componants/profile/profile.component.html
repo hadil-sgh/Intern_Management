@@ -1,0 +1,239 @@
+<div class="separator"></div>
+<div class="content-wrapper">
+  <!-- Content -->
+  <div class="container mt-4">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-4">
+            <h5 class="card-header">Profile Details</h5>
+            <!-- Account -->
+            <div class="card-body">
+              <form id="formAccountSettings" method="POST" onsubmit="return false">
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      [(ngModel)]="user.nom"
+                      autofocus
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="lastName"
+                      id="lastName"
+                      [(ngModel)]="user.prenom"
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="userName" class="form-label">Username</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="userName"
+                      name="userName"
+                      [(ngModel)]="user.userName"
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="password" class="form-label">Password</label>
+                    <input
+                      class="form-control"
+                      type="password"
+                      id="password"
+                      name="password"
+                      [(ngModel)]="user.password"
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input
+                      class="form-control"
+                      type="email"
+                      id="email"
+                      name="email"
+                      [(ngModel)]="user.email"
+                      placeholder="john.doe@example.com"
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      [(ngModel)]="user.NumTel"
+                      placeholder="202 555 0111"
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="cin" class="form-label">CIN</label>
+                    <input
+                      class="form-control"
+                      type="number"
+                      id="cin"
+                      name="cin"
+                      [(ngModel)]="user.cin"
+                      placeholder="CIN Number"
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="dateNaissance" class="form-label">Date of Birth</label>
+                    <input
+                      class="form-control"
+                      type="date"
+                      id="dateNaissance"
+                      name="dateNaissance"
+                      [(ngModel)]="user.dateNaissance"
+                    />
+                  </div>
+                </div>
+
+                <div class="mt-2">
+                  <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                  <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="separator1"></div>
+
+            <h5 class="card-header">Delete Account</h5>
+            <div class="card-body">
+              <div class="mb-3 col-12 mb-0">
+                <div class="alert alert-warning">
+                  <h6 class="alert-heading fw-bold mb-1">Are you sure you want to delete your account?</h6>
+                  <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
+                </div>
+              </div>
+              <form id="formAccountDeactivation" onsubmit="return false">
+                <div class="form-check mb-3">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="accountActivation"
+                    id="accountActivation"
+                  />
+                  <label class="form-check-label" for="accountActivation">
+                    I confirm my account deactivation
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="separator"></div>
+
+</div>
+
+<style>
+  .star-rating {
+    font-size: 24px;
+  }
+
+  .separator {
+    height: 100px;
+  }
+
+  .separator1 {
+    height: 10px;
+  }
+
+  .star {
+    color: gray;
+    display: inline-block;
+  }
+
+  .checked {
+    color: gold;
+  }
+
+  .half {
+    position: relative;
+    display: inline-block;
+  }
+
+  .half:before {
+    content: '\2605'; /* Unicode character for a solid star */
+    position: absolute;
+    overflow: hidden;
+    width: 50%; /* Display half of the star */
+    color: gold; /* Color of the half star */
+  }
+
+  .button-icon {
+    width: 20px;
+    height: auto;
+    margin-right: 5px;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
+
+  .button-space {
+    margin: 0 10px;
+  }
+
+  .button-space1 {
+    margin: 0 5px;
+  }
+
+  .swal-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .star {
+    cursor: pointer;
+  }
+
+  .star.selected,
+  .star:hover {
+    color: gold; /* Change color to highlight selected stars */
+  }
+
+  .status-icon {
+    width: 30px;
+    height: auto;
+    margin-right: 5px;
+  }
+
+  .star-rating {
+    font-size: 20px; /* Adjust the font size to make the stars bigger */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Add margin to create space between stars and buttons */
+  }
+
+  .star {
+    font-size: 30px; /* Adjust the font size to make the stars bigger */
+  }
+
+  .button-icon {
+    width: 20px; /* Adjust the width to your desired size */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 5px; /* Optional: Add margin for spacing */
+  }
+
+  .button-icon1 {
+    width: 40px;
+    height: auto;
+    margin-right: 5px;
+  }
+</style>

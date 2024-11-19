@@ -1,0 +1,128 @@
+<div class="container mt-4">
+
+
+  <div class="card mb-4">
+  <!-- User Table -->
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>name </th>
+        <th>Email</th>
+        <th>Birth date</th>
+        <th>Id</th>
+        <th>Phone Number</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.userName }}</td>
+        <td>{{ user.nom }} {{ user.prenom }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.dateNaissance }}</td>
+        <td>{{ user.cin }}</td>
+        <td>{{ user.NumTel }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <button (click)="editUser(user)" class="btn btn-success me-2" style="padding: 4px 9px; font-size: 20px;">
+            <img src="/assets/FrontOffice/img/edit.png" alt="Edit" style="width: 15px; height: 15px;" />
+          </button>
+          <button (click)="deleteUser(user.id)" class="btn btn-danger" style="padding: 4px 9px; font-size: 20px;">
+            <img src="/assets/FrontOffice/img/rejected.png" alt="Delete" style="width: 15px; height: 15px;" />
+          </button>
+          
+        </td>
+        
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <form [formGroup]="userForm" (ngSubmit)="submitUser()">
+    <div class="card mb-4">
+      <h5 class="card-header">{{ editingUser ? 'Edit User' : 'Add User' }}</h5>
+      <div class="card-body demo-vertical-spacing demo-only-element">
+  
+        <!-- Username -->
+        <div class="input-group mb-3">
+          <span class="input-group-text"></span>
+          <input type="text" class="form-control" formControlName="userName" placeholder="Username">
+        </div>
+        <div *ngIf="f['userName'].touched && f['userName'].invalid" class="alert alert-danger" role="alert">
+          <small *ngIf="f['userName'].errors?.['required']">Username is required.</small>
+          <small *ngIf="f['userName'].errors?.['minlength']">Username must be at least 4 characters long.</small>
+        </div>
+  
+   
+  
+        <!-- First Name -->
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" formControlName="nom" placeholder="First Name">
+        </div>
+        <div *ngIf="f['nom'].touched && f['nom'].invalid" class="alert alert-danger" role="alert">
+          <small *ngIf="f['nom'].errors?.['required']">First Name is required.</small>
+        </div>
+  
+        <!-- Last Name -->
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" formControlName="prenom" placeholder="Last Name">
+        </div>
+        <div *ngIf="f['prenom'].touched && f['prenom'].invalid" class="alert alert-danger" role="alert">
+          <small *ngIf="f['prenom'].errors?.['required']">Last Name is required.</small>
+        </div>
+  
+        <!-- Email -->
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" formControlName="email" placeholder="Email">
+        </div>
+        <div *ngIf="f['email'].touched && f['email'].invalid" class="alert alert-danger" role="alert">
+          <small *ngIf="f['email'].errors?.['required']">Email is required.</small>
+          <small *ngIf="f['email'].errors?.['email']">Enter a valid email address.</small>
+        </div>
+  
+        <!-- Date of Birth -->
+        <div class="input-group mb-3">
+          <input type="date" class="form-control" formControlName="dateNaissance">
+        </div>
+        <div *ngIf="f['dateNaissance'].touched && f['dateNaissance'].invalid" class="alert alert-danger" role="alert">
+          <small *ngIf="f['dateNaissance'].errors?.['required']">Date of Birth is required.</small>
+        </div>
+  
+        <!-- CIN -->
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" formControlName="cin" placeholder="CIN">
+        </div>
+        <div *ngIf="f['cin'].touched && f['cin'].invalid" class="alert alert-danger" role="alert">
+          <small *ngIf="f['cin'].errors?.['required']">CIN is required.</small>
+          <small *ngIf="f['cin'].errors?.['pattern']">CIN must be exactly 8 digits.</small>
+        </div>
+  
+        <!-- Phone Number -->
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" formControlName="NumTel" placeholder="Phone Number">
+        </div>
+        <div *ngIf="f['NumTel'].touched && f['NumTel'].invalid" class="alert alert-danger" role="alert">
+          <small *ngIf="f['NumTel'].errors?.['required']">Phone Number is required.</small>
+          <small *ngIf="f['NumTel'].errors?.['pattern']">Phone Number must be exactly 8 digits.</small>
+        </div>
+  
+        <!-- Role -->
+        <div class="input-group mb-3">
+          <select class="form-select" formControlName="role">
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+            <option value="MANAGER">Manager</option>
+          </select>
+        </div>
+        <div *ngIf="f['role'].touched && f['role'].invalid" class="alert alert-danger" role="alert">
+          <small *ngIf="f['role'].errors?.['required']">Role is required.</small>
+        </div>
+  
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">{{ editingUser ? 'Update User' : 'Add User' }}</button>
+      </div>
+    </div>
+  </form>
+  </div>

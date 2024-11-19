@@ -1,0 +1,107 @@
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h2>Task Management</h2>
+        <button type="button" class="btn btn-primary" (click)="onAddTask()" data-bs-toggle="modal" data-bs-target="#taskModal">
+            Add Task
+        </button>
+    </div>
+
+    <hr />
+
+    <div class="card">
+        <h5 class="card-header">Task List</h5>
+
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Intern</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let task of tasks">
+                            <td>{{ task.description }}</td>
+                            <td>{{ task.dueDate | date }}</td>
+                            <td>
+                                <img 
+                                    [src]="getStatusImage(task.status)" 
+                                    alt="{{ task.status }}" 
+                                    class="status-icon"
+                                />
+                            </td>
+                            <td>
+                                <span *ngIf="task.priority === 'LOW'" class="badge rounded-pill bg-label-info">LOW</span>
+                                <span *ngIf="task.priority === 'HIGH'" class="badge rounded-pill bg-label-primary">HIGH</span>
+                                <span *ngIf="task.priority === 'MEDIUM'" class="badge rounded-pill bg-label-success">MEDIUM</span>
+                              </td>
+                            <td>{{ getUserName(task.userId) }}</td>
+                            <td>
+                                <button class="btn btn-outline-success me-2" (click)="onEditTask(task)" data-bs-toggle="modal" data-bs-target="#taskModal">Edit</button>
+                                <button class="btn btn-outline-danger" (click)="onDeleteTask(task.id)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for adding and editing tasks -->
+<div class="modal fade" id="taskModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ isEditMode ? 'Edit Task' : 'Add Task' }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <input id="description" formControlName="description" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="dueDate" class="form-label">Due Date:</label>
+                        <input id="dueDate" formControlName="dueDate" class="form-control" type="date" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status:</label>
+                        <select id="status" formControlName="status" class="form-select">
+                            <option *ngFor="let status of statusList" [value]="status">{{ status }}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="priority" class="form-label">Priority:</label>
+                        <select id="priority" formControlName="priority" class="form-select">
+                            <option *ngFor="let priority of priorityList" [value]="priority">{{ priority }}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userId" class="form-label">User:</label>
+                        <select id="userId" formControlName="userId" class="form-select">
+                            <option *ngFor="let user of users" [value]="user.id">{{ user.nom }} {{ user.prenom }}</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Create' }}</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+  .status-icon {
+    width: 35px;
+    height: auto;
+  }
+</style>

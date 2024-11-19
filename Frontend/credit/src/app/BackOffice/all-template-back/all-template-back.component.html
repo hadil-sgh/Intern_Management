@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/BackOffice/img/favicon/favicon.ico"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="/assets/BackOffice/vendor/fonts/boxicons.css"
+    />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/assets/BackOffice/vendor/css/core.css" />
+    <link
+      rel="stylesheet"
+      href="/assets/BackOffice/vendor/css/theme-default.css"
+    />
+    <link rel="stylesheet" href="/assets/BackOffice/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link
+      rel="stylesheet"
+      href="/assets/BackOffice/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/assets/BackOffice/vendor/libs/apex-charts/apex-charts.css"
+    />
+
+    <!-- Core JS -->
+    <script src="/assets/BackOffice/vendor/libs/jquery/jquery.js"></script>
+    <script src="/assets/BackOffice/vendor/libs/popper/popper.js"></script>
+    <script src="/assets/BackOffice/vendor/js/bootstrap.js"></script>
+    <script src="/assets/BackOffice/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/assets/BackOffice/vendor/js/menu.js"></script>
+
+    <!-- Vendors JS -->
+    <script src="/assets/BackOffice/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="/assets/BackOffice/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="/assets/BackOffice/js/dashboards-analytics.js"></script>
+
+    <!-- GitHub buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      .layout-wrapper {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: row;
+      }
+
+      .layout-container {
+        display: flex;
+        flex: 1;
+        width: 100%;
+      }
+
+      #layout-menu {
+        flex: 0 0 250px; /* Adjust width as needed */
+        height: 100vh; /* Full height */
+        position: fixed; /* Fixed position */
+        top: 0;
+        left: 0;
+        overflow-y: auto; /* Add scrollbar if content overflows */
+        background-color: #f8f9fa; /* Adjust background color */
+      }
+
+      .layout-page {
+        margin-left: 250px; /* Same as #layout-menu width */
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem; /* Adjust padding as needed */
+      }
+
+      .layout-overlay {
+        display: none; /* Set to block if overlay is needed */
+      }
+
+      header.navbar,
+      footer.footer {
+        background-color: #ffffff; /* Adjust color as needed */
+        padding: 1rem; /* Adjust padding as needed */
+      }
+
+      main {
+        flex: 1;
+        padding: 1rem; /* Adjust padding as needed */
+      }
+
+      .separator {
+        height: 200px;
+        background-color: #f5f5f5; /* Example background color */
+      }
+
+      .separator2 {
+        height: 360px;
+      }
+
+      .menu-inner img {
+        width: 24px; /* Adjust size as needed */
+        height: 24px; /* Adjust size as needed */
+        margin-right: 10px; /* Space between image and text */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <aside
+          id="layout-menu"
+          class="layout-menu menu-vertical menu bg-menu-theme"
+        >
+          <div class="app-brand demo">
+            <a href="index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <!-- SVG Logo -->
+                <svg
+                  width="25"
+                  viewBox="0 0 25 42"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <!-- SVG Paths Here -->
+                </svg>
+              </span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2"
+                ></span
+              >
+            </a>
+            <a
+              href="javascript:void(0);"
+              class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
+            >
+              <i class="bx bx-chevron-left bx-sm align-middle"></i>
+            </a>
+          </div>
+
+          <div class="menu-inner-shadow"></div>
+
+          <ul class="menu-inner py-1">
+            <!-- Dashboard -->
+            <li class="menu-item">
+              <a routerLink="/admin/contract" class="menu-link">
+                <img
+                  src="/assets/BackOffice/img/contract.png"
+                  alt="Contracts Management"
+                />
+                <div data-i18n="Analytics">Contracts Management</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a routerLink="/admin/credit" class="menu-link">
+                <img
+                  src="/assets/BackOffice/img/credit.png"
+                  alt="Credit Treatment"
+                />
+                <div data-i18n="Analytics">Credit Treatment</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a routerLink="/admin/task" class="menu-link">
+                <img
+                  src="/assets/BackOffice/img/task.png"
+                  alt="Payment Details"
+                />
+                <div data-i18n="Analytics">Assigning Tasks</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a routerLink="/admin/Performance" class="menu-link">
+                <img
+                  src="/assets/BackOffice/img/performance.png"
+                  alt="Payment Details"
+                />
+                <div data-i18n="Analytics">Performance Management</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a routerLink="/admin/PaymentPlans" class="menu-link">
+                <img
+                  src="/assets/BackOffice/img/plan.png"
+                  alt="Generate Payment Plans"
+                />
+                <div data-i18n="Analytics">Generate Payment Plans</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a routerLink="/admin/team" class="menu-link">
+                <img src="/assets/BackOffice/img/team.png" alt="Users" />
+                <div data-i18n="Analytics">Teams Mangment</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a routerLink="/admin/event" class="menu-link">
+                <img src="/assets/BackOffice/img/event.png" alt="Users" />
+                <div data-i18n="Analytics">Event Managment</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a routerLink="/admin/users" class="menu-link">
+                <img src="/assets/BackOffice/img/user.png" alt="Users" />
+                <div data-i18n="Analytics">Users</div>
+              </a>
+            </li>
+            <!-- Logout Section -->
+            <li class="menu-item">
+              <a routerLink="/admin/logout" class="menu-link">
+                <img src="/assets/BackOffice/img/logout.png" alt="Logout" />
+                <div data-i18n="Analytics">Logout</div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <app-navbar-back></app-navbar-back>
+          <main>
+            <!-- Router outlet -->
+            <router-outlet></router-outlet>
+          </main>
+          <footer class="footer">
+            <app-footer-back></app-footer-back>
+          </footer>
+        </div>
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+
+    <!-- Theme config -->
+    <script src="/assets/BackOffice/js/config.js"></script>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<div class="container mt-4">
+  <h1>Credits</h1>
+
+  <!-- Main Tabs -->
+  <ul class="nav nav-tabs" id="creditTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending Credits</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="all-tab" data-bs-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="false">Treated Credits</a>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-4" id="creditTabsContent">
+    <!-- Pending Credits Tab -->
+    <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+      <div class="card mt-4">
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" (change)="toggleAllSelection($event)" />
+                </th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Duration</th>
+                <th>Intern</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let credit of pendingCredits" class="hover-row">
+                <td>
+                  <input type="checkbox" [checked]="selectedCreditIds.has(credit.id)" (change)="toggleSelection(credit.id, $event)" />
+                </td>
+                <td>{{ credit.creditType }}</td>
+                <td>{{ credit.creditAmount }}</td>
+                <td>{{ credit.creditDuration }}</td>
+                <td>{{ getUserFullName(credit.userId) }}</td>
+                <td>
+                  <button (click)="openEditModal(credit)" class="btn rounded-pill btn-outline-info">Review Request</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-end mt-3">
+            <button (click)="deleteSelectedCredits()" class="btn btn-outline-danger">Delete Selected</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Credits Tab -->
+    <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" (change)="toggleAllSelection($event)" />
+                </th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Amount</th>
+                <th>Duration</th>
+                <th>Intern</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let credit of otherCredits" class="hover-row">
+                <td>
+                  <input type="checkbox" [checked]="selectedCreditIds.has(credit.id)" (change)="toggleSelection(credit.id, $event)" />
+                </td>
+                <td>{{ credit.creditType }}</td>
+                <td>
+                  <span *ngIf="credit.creditStatus === 'APPROVED'" class="badge bg-label-success">APPROVED</span>
+                  <span *ngIf="credit.creditStatus === 'PENDING'" class="badge bg-label-warning">PENDING</span>
+                  <span *ngIf="credit.creditStatus === 'REJECTED'" class="badge bg-label-danger">REJECTED</span>
+                </td>
+                <td>{{ credit.creditAmount }}</td>
+                <td>{{ credit.creditDuration }}</td>
+                <td>{{ getUserFullName(credit.userId) }}</td>
+           
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-end mt-3">
+            <button (click)="deleteSelectedCredits()" class="btn btn-outline-danger">Delete Selected</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" tabindex="-1" [ngClass]="{'show': isModalOpen}" [style.display]="isModalOpen ? 'block' : 'none'" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" *ngIf="selectedCredit">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Edit Credit Status</h5>
+          <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="updateCreditStatus()">
+            <div class="mb-3">
+              <label for="creditStatus" class="form-label">Status</label>
+              <select id="creditStatus" class="form-select" [(ngModel)]="selectedCredit.creditStatus" name="creditStatus">
+                <option value="APPROVED">Approved</option>
+                <option value="REJECTED">Rejected</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .d-flex.justify-content-end {
+  margin-top: 10px; /* Add space between button and table */
+}
+
+</style>

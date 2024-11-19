@@ -1,0 +1,117 @@
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h2>Contracts Management</h2>
+        <button type="button" class="btn btn-primary" (click)="onAddContract()" data-bs-toggle="modal" data-bs-target="#contractModal">
+            Add Contract
+        </button>
+    </div>
+
+    <hr />
+
+    <div class="card">
+        <h5 class="card-header">Contracts List</h5>
+
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Contract Reference</th>
+                            <th>Intern</th>
+                            <th>Interest Rate</th>
+                            <th>Interest Rate Type</th>
+                            <th>Collateral</th>
+                            <th>Residence Location</th>
+                            <th>Pdf</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let contract of contracts">
+                            <td>{{ contract.contractReference }}</td>
+                            <td>{{ contract.borrower }}</td>
+                            <td>{{ contract.interestRate }}%</td>
+                            <td>{{ contract.interestRateType }}</td>
+                            <td>{{ contract.collateralDescription || 'N/A' }}</td>
+                            <td>{{ contract.residenceLocation }}</td>
+                            <td>
+                                <img src="/assets/BackOffice/img/pdf.png" alt="PDF Icon" class="button-icon" (click)="displayContractPdf(contract.id)" />
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-success me-2" (click)="onEditContract(contract)" data-bs-toggle="modal" data-bs-target="#contractModal">Edit</button>
+                                <button class="btn btn-outline-danger" (click)="onDeleteContract(contract.id)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .button-icon {
+        width: 20px; 
+        height: auto; 
+        margin-right: 5px; 
+    }
+</style>
+
+<!-- Modal for adding and editing contracts -->
+<div class="modal fade" id="contractModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ isEditMode ? 'Edit Contract' : 'Add Contract' }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="contractForm" (ngSubmit)="onSubmit()">
+                  
+                    <div class="mb-3">
+                        <label for="borrower" class="form-label">Intern:</label>
+                        <input id="borrower" formControlName="borrower" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="interestRate" class="form-label">Interest Rate (%):</label>
+                        <input id="interestRate" formControlName="interestRate" type="number" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="interestRateType" class="form-label">Interest Rate Type:</label>
+                        <select id="interestRateType" formControlName="interestRateType" class="form-select">
+                            <option value="FIXED">Fixed</option>
+                            <option value="VARIABLE">Variable</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="collateralDescription" class="form-label">Collateral Description:</label>
+                        <input id="collateralDescription" formControlName="collateralDescription" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="residenceLocation" class="form-label">Residence Location:</label>
+                        <input id="residenceLocation" formControlName="residenceLocation" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="creditId" class="form-label">Credit:</label>
+                        <select id="creditId" formControlName="creditId" class="form-select">
+                            <option *ngFor="let credit of credits" [value]="credit.id">{{ credit.creditAmount }} By {{ getUserFullName(credit.userId) }}</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Create' }}</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .button-icon {
+  width: 20px; 
+  height: auto; 
+  margin-right: 5px; 
+}
+</style>

@@ -1,0 +1,77 @@
+<div class="separator"></div>
+
+<!-- ======= Task List Section with Table ======= -->
+<section id="tasks" class="tasks">
+  <div class="container" data-aos="fade-up">
+    <link rel="stylesheet" href="/assets/BackOffice/css/styles.min.css" />
+    <div class="section-title">
+      <h2>Your Task List</h2>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of TaskList | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index">
+            <td>{{ task.description }}</td>
+            <td>{{ task.dueDate | date }}</td>
+            <td>{{ task.status }}</td>
+            <td>{{ task.priority }}</td>
+            <td>
+                <button class="btn btn-outline-success me-2" (click)="Edit(task)" data-bs-toggle="modal" data-bs-target="#taskModal">Update progress</button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section><!-- End Task List Section -->
+
+<div class="current" style="text-align: center;">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<style>
+  .separator {
+    height: 100px;
+  }
+
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+  }
+
+  .table-responsive {
+    margin-top: 20px;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px;
+    text-align: left;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  .current {
+    margin-top: 20px;
+    text-align: center;
+  }
+</style>

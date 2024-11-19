@@ -1,0 +1,85 @@
+<div class="container mt-4">
+  <div class="text-center mb-4">
+    <h2>Event Management</h2>
+    <button type="button" class="btn btn-primary" (click)="onAddEvent()" data-bs-toggle="modal" data-bs-target="#eventModal">
+      Add Event
+    </button>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-md-6 col-lg-4" *ngFor="let event of events">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ event.event }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ event.date | date: 'yyyy-MM-dd' }}</h6>
+          <h6 class="card-subtitle mb-2">Users:</h6>
+          <ul class="list-unstyled">
+            <li *ngFor="let user of event.users">{{ user.nom }} {{ user.prenom }}</li>
+          </ul>
+          <div class="mt-3">
+            <button
+              class="btn btn-outline-success me-2"
+              (click)="onEditEvent(event)"
+              data-bs-toggle="modal"
+              data-bs-target="#eventModal"
+            >
+              Edit
+            </button>
+            <button class="btn btn-outline-danger me-2" (click)="onDeleteEvent(event.id)">Delete</button>
+            <button class="btn btn-outline-warning" (click)="onDeleteEvent(event.id)">Assign new Member</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ isEditMode ? 'Edit Event' : 'Add Event' }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="event-form">
+            <div class="mb-3">
+              <label for="event" class="form-label">Event Type:</label>
+              <select id="event" formControlName="event" class="form-select">
+                <option value="" disabled>Select Event Type</option>
+                <option *ngFor="let event of eventTypes" [value]="event">{{ event }}</option>
+              </select>
+              <div *ngIf="eventForm.get('event')?.invalid && (eventForm.get('event')?.touched || eventForm.get('event')?.dirty)">
+                <small class="text-danger">Event Type is required.</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="date" class="form-label">Event Date:</label>
+              <input id="date" type="date" formControlName="date" class="form-control" />
+              <div *ngIf="eventForm.get('date')?.invalid && (eventForm.get('date')?.touched || eventForm.get('date')?.dirty)">
+                <small class="text-danger">Event Date is required.</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="userIds" class="form-label">Users:</label>
+              <select id="userIds" formControlName="userIds" class="form-select" multiple>
+                <option *ngFor="let user of users1" [value]="user.id">{{ user.nom }} {{ user.prenom }}</option>
+              </select>
+              <div *ngIf="eventForm.get('userIds')?.invalid && (eventForm.get('userIds')?.touched || eventForm.get('userIds')?.dirty)">
+                <small class="text-danger">At least one user must be selected.</small>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">{{ isEditMode ? 'Update' : 'Create' }}</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

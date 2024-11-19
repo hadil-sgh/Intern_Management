@@ -1,0 +1,124 @@
+<div class="separator"></div>
+
+<!-- ======= Performance History Section ======= -->
+<section id="services" class="services">
+  <div class="container" data-aos="fade-up">
+    <link rel="stylesheet" href="/assets/BackOffice/css/styles.min.css" />
+    <div class="section-title">
+      <h2>Your Performance History</h2>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 d-flex align-items-stretch" *ngFor="let performance of performanceList | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+        <div class="icon-box" [ngStyle]="{'max-width': '500px', 'padding': '60px', 'margin-bottom': '20px', 'box-shadow': '0px 0px 10px 0px rgba(0, 0, 0, 0.1)'}">
+            <div class="star-rating">
+                <span *ngFor="let star of getStars(performance.grade)" class="star" [ngClass]="{'checked': star === 'checked', 'half': star === 'half'}">&#9733;</span>
+            </div>
+          <div class="container1">
+            
+            <p><b>Comment : </b> {{performance.comment}}</p>
+          </div>
+          <p> <b>Month: </b>{{performance.week}}</p>
+          <p><b>Year: </b>{{performance.year}}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- End Performance History Section -->
+
+
+<div class="current" style="text-align: center;">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+<style>
+    .star-rating {
+      font-size: 24px;
+    }
+    .separator {
+        height: 100px; }
+    .star {
+      color: gray;
+      display: inline-block;
+    }
+  
+    .checked {
+      color: gold;
+    }
+  
+    .half {
+      position: relative;
+      display: inline-block;
+    }
+  
+    .half:before {
+      content: '\2605'; /* Unicode character for a solid star */
+      position: absolute;
+      overflow: hidden;
+      width: 50%; /* Display half of the star */
+      color: gold; /* Color of the half star */
+    }
+  
+    .button-icon {
+      width: 20px;
+      height: auto;
+      margin-right: 5px;
+    }
+    form-label {
+      font-size: 14px;
+  }
+  
+  
+      .separator {
+      height: px; }
+      .separator1 {
+      height: 10px; }
+      .button-space {
+      margin: 0 10px; } 
+      .button-space1 {
+      margin: 0 5px; 
+    }
+    .swal-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    .star {
+    cursor: pointer;
+  }
+  
+  .star.selected,
+  .star:hover {
+    color: gold; /* Change color to highlight selected stars */
+  }
+  
+  .status-icon {
+    width: 30px; 
+    height: auto; 
+    margin-right: 5px; 
+  }
+    /* Add this CSS to your performence.component.css file */
+  
+    .star-rating {
+      font-size: 20px; /* Adjust the font size to make the stars bigger */
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px; /* Add margin to create space between stars and buttons */
+  }
+  
+  
+  .star {
+    font-size: 30px; /* Adjust the font size to make the stars bigger */
+  }
+  
+    .button-icon {
+    width: 20px; /* Adjust the width to your desired size */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 5px; /* Optional: Add margin for spacing */
+    }
+    .button-icon1 {
+      width: 40px; 
+      height: auto; 
+      margin-right: 5px; 
+    }
+  </style>
